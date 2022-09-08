@@ -46,6 +46,12 @@ class GPIO_Control:
         GPIO.output(pinsetting[0], pinsetting[1])
         print("Output Finish...\n")
 
+    def TurnOff(self, Pin):
+
+        print("Turn Off used PIN...\n")
+        GPIO.setup(Pin[0], GPIO.OUT)
+        GPIO.output(Pin[0], 0)
+
 def Sleep(sec):
 
     print("Sleep for " + str(sec) + " sec")
@@ -62,9 +68,11 @@ def main():
     Setting = GPIO.Setting_Pin()
     GPIO.Output(Setting)
     Sleep(5)
+    GPIO.TurnOff(Setting)
 
 
 if __name__ == "__main__":
 
     main()
     GPIO.cleanup()
+    print("Program Finish Success!!!\n")
