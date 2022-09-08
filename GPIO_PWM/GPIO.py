@@ -22,9 +22,9 @@ class GPIO_Control:
         IO_setting.clear()
 
         PinNumber = 777
-        while PinNumber > 26 and PinNumber < 0:
+        while PinNumber > 26 or PinNumber < 0:
             PinNumber = int(input("Please input PinNumber to start[0-26]...."))
-            if PinNumber > 26 and PinNumber < 0:
+            if PinNumber > 26 or PinNumber < 0:
                 print("Unavailable PinNumber, Please renter...\n")
 
         IO_setting.append(PinNumber)
