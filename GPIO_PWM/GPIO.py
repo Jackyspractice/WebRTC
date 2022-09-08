@@ -3,7 +3,6 @@ import time
 
 class GPIO_Control:
 
-    IO_setting = []
 
     def IO_init(self):
 
@@ -19,7 +18,8 @@ class GPIO_Control:
 
     def Setting_Pin(self):
 
-        global IO_setting
+        IO_setting = []
+        IO_setting.clear()
 
         PinNumber = 777
         while PinNumber > 26 and PinNumber < 0:
@@ -34,6 +34,8 @@ class GPIO_Control:
             Pin_value = int(input("Please input value of pin to start[0, 1]...."))
 
         IO_setting.append(Pin_value)
+
+        return IO_setting
 
 
     
@@ -57,8 +59,8 @@ def main():
     GPIO = GPIO_Control()
 
     GPIO.IO_init()
-    GPIO.Setting_Pin()
-    GPIO.Output(GPIO.IO_setting)
+    Setting = GPIO.Setting_Pin()
+    GPIO.Output(Setting)
     Sleep(5)
 
 
