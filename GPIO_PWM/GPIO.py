@@ -49,7 +49,6 @@ class GPIO_Control:
     def TurnOff(self, Pin):
 
         print("Turn Off used PIN...\n")
-        GPIO.setup(Pin[0], GPIO.OUT)
         GPIO.output(Pin[0], 0)
 
 def Sleep(sec):
