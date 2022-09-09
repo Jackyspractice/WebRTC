@@ -2,3 +2,4 @@ aiortc
 Flask
 line-bot-sdk
 OPi.GPIO
+PyA20

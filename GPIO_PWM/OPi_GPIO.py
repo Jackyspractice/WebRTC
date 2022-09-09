@@ -12,7 +12,7 @@ class GPIO_Control:
         #GPIO.setmode(GPIO.BCM) 對表BCM的PIN號
         #GPIO.setmode(GPIO.wiringPi) 適用於C++
         #HOW TO FIND PIN TABLE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        #cmd "gpio readall"
+        #cmd "gpio readall" (Need install wiring)
         #OR GOto
         # https://github.com/rm-hull/OPi.GPIO
 
