@@ -73,7 +73,6 @@ class PWM_Control:
 
         if degree == 0:
 
-
         elif degree == 45:
 
         elif degree == 90:
