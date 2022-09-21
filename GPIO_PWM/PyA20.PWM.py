@@ -1,5 +1,12 @@
 from pyA20.gpio import gpio
 from pyA20.gpio import port
+
+#To-dos
+#modify /usr/local/bin/python --- pyA20.gpio mapping.h (add new PA6)
+#https://github.com/nvl1109/orangepi_zero_gpio/blob/master/pyA20/gpio/mapping.h
+
+
+
 from time import sleep
 from orangepwm import *
 

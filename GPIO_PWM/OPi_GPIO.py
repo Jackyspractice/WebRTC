@@ -1,5 +1,6 @@
 import OPi.GPIO as GPIO
 import time
+import threading
 
 class GPIO_Control:
 

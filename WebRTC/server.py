@@ -148,7 +148,6 @@ def open_webcam():
         app, access_log=None, host=args.host, port=args.port, ssl_context=None
     )
 
-
 if __name__ == "__main__":
 
     open_webcam()
