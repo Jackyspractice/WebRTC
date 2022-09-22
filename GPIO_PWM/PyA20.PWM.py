@@ -97,8 +97,8 @@ sleep(1)
 # (1 / 10) * ((100 - 6) / 100) = 0.094 seconds.
 # If a LED is plugged to with GPIO pin, it will shine at 6% of its capacity, but you may
 # notice flickering.
-pwm.changeFrequency(10)
-sleep(2)
+#pwm.changeFrequency(10)
+#sleep(2)
 
 # Stop PWM output
 pwm.stop()
