@@ -82,15 +82,15 @@ sleep(2)
 # (1 / 100) * ((100 - 6) / 100) = 0.0094 seconds.
 # If a LED is plugged to with GPIO pin, it will shine at 6% of its capacity.
 pwm.changeDutyCycle(2.5)
-sleep(2)
+sleep(1)
 pwm.changeDutyCycle(5)
-sleep(2)
+sleep(1)
 pwm.changeDutyCycle(7.5)
-sleep(2)
+sleep(1)
 pwm.changeDutyCycle(10)
-sleep(2)
+sleep(1)
 pwm.changeDutyCycle(12.5)
-sleep(2)
+sleep(1)
 
 # Change the frequency of the PWM pattern. The pulse (HIGH state) will now have a duration of
 # (1 / 10) * (6 / 100) = 0.006 seconds, followed by a low state with a duration of
