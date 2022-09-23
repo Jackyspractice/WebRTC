@@ -4,7 +4,7 @@ from pyA20.gpio import port
 #To-dos
 #modify /usr/local/bin/python --- pyA20.gpio mapping.h (add new PA6)
 #https://github.com/nvl1109/orangepi_zero_gpio/blob/master/pyA20/gpio/mapping.h
-#https://github.com/duxingkei33/orangepi_PC_gpio_pyH3
+#https://github.com/duxingkei33/orangepi_PC_gpio_pyH3 python setup.py install
 
 
 

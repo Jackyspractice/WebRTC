@@ -6,6 +6,7 @@ from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
 
 from server import open_webcam, get_ngrok_URL
+from PWM import *
 
 app = Flask(__name__)
 
@@ -81,6 +82,12 @@ def handle_message(event):
         elif mtext == "Box1":
             
             line_bot_api.reply_message(event.reply_token, TextSendMessage("Opening Box1 for you...$", emojis = emoji1))
+            
+            PWM = PWM_Control()
+            PWM.initial()
+            PWM.Open()
+            PWM.Reset()
+
 
         elif mtext == "Box2":
 

@@ -1,5 +1,8 @@
-aiortc
-Flask
+aiortc 
+https://stackoverflow.com/questions/68592184/error-version-of-cffi-python-package-mismatch
+https://community.st.com/s/question/0D53W00001cGbrLSAS/how-to-install-aiortc-python-module-in-stm32mp157fdk2
+Flask 
 line-bot-sdk
 OPi.GPIO
 PyA20
+pyngrok
