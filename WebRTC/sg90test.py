@@ -1,8 +1,3 @@
-
-
-from tkinter.messagebox import NO
-
-
 SG90_Degree = []
 
 class SG90:

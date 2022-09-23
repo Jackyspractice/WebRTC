@@ -48,6 +48,8 @@ class PWM_Control:
 
     def Open(): #clockwise, turns
 
+        print("Opening...")
+
         global PWM
 
         PWM.start(SG90_Degree[0].duty)
@@ -55,23 +57,31 @@ class PWM_Control:
 
         for j in range (0, Turns):
 
+            print("Turns:" , j)
+
             for i in range (1, 5):
 
                 PWM.changeDutyCycle(SG90_Degree[i].duty)
+                sleep(0.5)
 
 
         PWM.stop()
 
     def Close():    #counter clockwise turns
 
+        print("Closing...")
+
         PWM.start(SG90_Degree[0].duty)
         sleep(0.5)
 
         for j in range (0, Turns):
 
+            print("Turns:", j)
+
             for i in range (1, 5):
 
                 PWM.changeDutyCycle(SG90_Degree[5 - i].duty)
+                sleep(0.5)
 
 
         PWM.stop()

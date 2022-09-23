@@ -84,6 +84,7 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token, TextSendMessage("Opening Box1 for you...$", emojis = emoji1))
             
             PWM = PWM_Control()
+            
             PWM.initial()
             PWM.Open()
             PWM.Reset()
