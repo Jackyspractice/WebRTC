@@ -46,7 +46,7 @@ class SG90:
 
 class PWM_Control:
 
-    def Open(): #clockwise, turns
+    def Open(self): #clockwise, turns
 
         print("Opening...")
 
@@ -67,7 +67,7 @@ class PWM_Control:
 
         PWM.stop()
 
-    def Close():    #counter clockwise turns
+    def Close(self):    #counter clockwise turns
 
         print("Closing...")
 
@@ -99,7 +99,7 @@ class PWM_Control:
         self.initial_SG90()
         PWM = OrangePwm(SG90_Degree[0].frequence, port.PA6)
 
-    def Reset():    #reset sg90 to 0 degree
+    def Reset(self):    #reset sg90 to 0 degree
 
         global PWM
 
