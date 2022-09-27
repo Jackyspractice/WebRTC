@@ -106,6 +106,7 @@ def handle_message(event):
 
 def open_port():
 
+    print("open ngrok")
     ngrok.set_auth_token(ngrok_token)
     http_tunnel = ngrok.connect(5000)
 
