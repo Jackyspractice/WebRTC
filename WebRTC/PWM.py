@@ -103,6 +103,7 @@ class PWM_Control:
 
         global PWM
 
+        print("Reset position")
         PWM.start(SG90_Degree[0].duty)
         PWM.stop()
 
