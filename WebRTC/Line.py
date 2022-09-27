@@ -109,6 +109,7 @@ def open_port():
     print("open ngrok")
     ngrok.set_auth_token(ngrok_token)
     http_tunnel = ngrok.connect(5000)
+    print("-------------------->" + http_tunnel.public_url)
 
 if __name__ == '__main__':
 
