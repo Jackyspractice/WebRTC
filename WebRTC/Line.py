@@ -83,7 +83,7 @@ def handle_message(event):
 
         elif mtext == "Box1":
             
-            line_bot_api.reply_message(event.reply_token, TextSendMessage("Opening Box1 for you...$", emojis = emoji1))
+            line_bot_api.reply_message(event.reply_token, TextSendMessage("$Opening Box1 for you...", emojis = emoji1))
             
             PWM = PWM_Control()
             
@@ -94,11 +94,11 @@ def handle_message(event):
 
         elif mtext == "Box2":
 
-            line_bot_api.reply_message(event.reply_token, TextSendMessage("Opening Box2 for you...$", emojis = emoji2))            
+            line_bot_api.reply_message(event.reply_token, TextSendMessage("$Opening Box2 for you...", emojis = emoji2))            
 
         elif mtext == "Set":
             
-            line_bot_api.reply_message(event.reply_token, TextSendMessage("You really want to set schedule?$", emojis = emoji2))
+            line_bot_api.reply_message(event.reply_token, TextSendMessage("$You really want to set schedule?", emojis = emoji2))
         
         else:
 
