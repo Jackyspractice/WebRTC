@@ -12,7 +12,7 @@ from aiortc.contrib.media import MediaPlayer, MediaRelay
 
 from pyngrok import ngrok
 
-token = "2EFlxQQDpreqVGMuQVTtTepMzHB_7Px3VmMDjcQxgLoDH7Ync"
+token = "2FM9hVmFjGxvAQLtqhzUouXBvMB_35eUbpExjAaERX4Rr7Bh2"
 logger = logging.getLogger("pc")
 pcs = set()
 ROOT = os.path.dirname(__file__)
