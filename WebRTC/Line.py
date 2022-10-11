@@ -7,7 +7,7 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage
 
 from server import open_webcam, get_ngrok_URL
 from pyngrok import ngrok
-from PWM import *
+#from PWM import *
 
 app = Flask(__name__)
 
@@ -94,6 +94,12 @@ def handle_message(event):
 
         elif mtext == "Box2":
 
+            PWM = PWM_Control()
+            
+            PWM.initial()
+            PWM.Open()
+            PWM.Reset()
+
             line_bot_api.reply_message(event.reply_token, TextSendMessage("$Opening Box2 for you...", emojis = emoji2))            
 
         elif mtext == "Set":
@@ -113,5 +119,5 @@ def open_port():
 
 if __name__ == '__main__':
 
-    open_port()
+    #open_port()
     app.run()
