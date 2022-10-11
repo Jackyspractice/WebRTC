@@ -16,6 +16,8 @@ line_bot_api = LineBotApi('hy1MPmID80D6fM0jPXOKEjKO7MzZFOAiqHgLVlE1yBWeNHwYlPxDP
 handler = WebhookHandler('39e09da5ec6ccdc24b2848ed3b055336') #Channel secret
 ngrok_token = "2EFlxQQDpreqVGMuQVTtTepMzHB_7Px3VmMDjcQxgLoDH7Ync"
 
+webcam_URL = None
+
 emoji1 = [
     {
         "index": 0,
@@ -67,7 +69,7 @@ def handle_message(event):
 
             line_bot_api.reply_message(event.reply_token, TextSendMessage("$Connecting Webcam...", emojis = emoji1))
 
-            webcam_URL = get_ngrok_URL()
+            #webcam_URL = get_ngrok_URL()
             
 
             if (type(webcam_URL) == type("string")):
@@ -112,12 +114,17 @@ def handle_message(event):
 
 def open_port():
 
+    global webcam_URL
+
     print("open ngrok")
     ngrok.set_auth_token(ngrok_token)
-    http_tunnel = ngrok.connect(5000)
-    print("-------------------->" + http_tunnel.public_url)
+    http_tunnel_Line = ngrok.connect(5000)
+    print("Line-------------------->" + http_tunnel_Line.public_url)
+    http_tunnel_Server = ngrok.connect(8080)
+    print("Server-------------------->" + http_tunnel_Server.public_url)
+    webcam_URL = http_tunnel_Server.public_url
 
 if __name__ == '__main__':
 
-    #open_port()
+    open_port()
     app.run()
