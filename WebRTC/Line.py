@@ -118,13 +118,14 @@ def open_port():
 
     print("open ngrok")
     ngrok.set_auth_token(ngrok_token)
-    http_tunnel_Line = ngrok.connect(5000)
+    http_tunnel_Line = ngrok.connect(addr = 5000, bind_tls = True)
     print("Line-------------------->" + http_tunnel_Line.public_url)
-    http_tunnel_Server = ngrok.connect(8080)
+    http_tunnel_Server = ngrok.connect(addr = 8080, bind_tls = True)
     print("Server-------------------->" + http_tunnel_Server.public_url)
+
     webcam_URL = http_tunnel_Server.public_url
 
 if __name__ == '__main__':
 
-    open_port()
+    #open_port()
     app.run()
