@@ -7,7 +7,7 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage
 
 from server import open_webcam, get_ngrok_URL
 from pyngrok import ngrok
-#from PWM import *
+from PWM import *
 
 app = Flask(__name__)
 
