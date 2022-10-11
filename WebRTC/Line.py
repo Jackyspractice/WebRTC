@@ -127,5 +127,5 @@ def open_port():
 
 if __name__ == '__main__':
 
-    #open_port()
+    open_port()
     app.run()
