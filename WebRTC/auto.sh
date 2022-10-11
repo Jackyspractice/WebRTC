@@ -1,4 +1,4 @@
 #!/bin/bash
 
-gnome-terminal --/home/jacky/Desktop/WebRTC/WebRTC -- python3 ngrok_Line.py
-gnome-terminal --/home/jacky/Desktop/WebRTC/WebRTC -- python3 Line.py
+gnome-terminal --"/home/jacky/Desktop/WebRTC/WebRTC" -e "ngrok http 5000"
+gnome-terminal --"/home/jacky/Desktop/WebRTC/WebRTC" -e "python3 Line.py"
