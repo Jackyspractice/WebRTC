@@ -20,6 +20,8 @@ ROOT = os.path.dirname(__file__)
 relays = None
 webcam = None
 
+#async
+
 class parser:
 
     args = None
@@ -73,21 +75,21 @@ def create_local_tracks():
         relays = MediaRelay()
     return relays.subscribe(webcam.video)
 
-async def on_shutdown(app):
+def on_shutdown(app):
     # close peer connections
     coros = [pc.close() for pc in pcs]
     await asyncio.gather(*coros)
     pcs.clear()
 
-async def index(request):
+def index(request):
     content = open(os.path.join(ROOT, "index.html"), "r").read()
     return web.Response(content_type="text/html", text=content)
 
-async def javascript(request):
+def javascript(request):
     content = open(os.path.join(ROOT, "client.js"), "r").read()
     return web.Response(content_type="application/javascript", text=content)
 
-async def offer(request):
+def offer(request):
     params = await request.json()
     offer = RTCSessionDescription(sdp=params["sdp"], type=params["type"])
     
