@@ -117,7 +117,7 @@ def open_port():
     global webcam_URL
 
     print("open ngrok")
-    ngrok.set_auth_token(ngrok_token)
+    #ngrok.set_auth_token(ngrok_token)
     http_tunnel_Line = ngrok.connect(addr = 5000, bind_tls = True)
     print("Line-------------------->" + http_tunnel_Line.public_url)
     http_tunnel_Server = ngrok.connect(addr = 8080, bind_tls = True)
