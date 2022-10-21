@@ -18,7 +18,7 @@ def setface(name):
     else:
         os.mkdir('images/' + name)
         face_cascade = cv2.CascadeClassifier("/home/jacky/Desktop/WebRTC/WebRTC/haarcascade_frontalface_alt2.xml")
-        cap = cv2.VideoCapture(0)
+        cap = cv2.VideoCapture(-1)
         print("開啟攝影機")
         cv2.namedWindow('video', cv2.WINDOW_NORMAL)
         while index > 0:
