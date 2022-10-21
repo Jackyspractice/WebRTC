@@ -1,0 +1,19 @@
+If your preferred distro does not provide the modified driver you can build it yourself.
+
+git clone https://github.com/avafinger/gc2035.git
+
+copy file gc2035.c to:
+
+drivers/media/video/sunxi-vfe/device
+
+compile:
+
+make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- -j2 INSTALL_MOD_PATH=output SUBDIRS=drivers/media/video/sunxi-vfe/device modules CC [M] drivers/media/video/sunxi-vfe/device/gc2035.o Building modules, stage 2. MODPOST 40 modules CC drivers/media/video/sunxi-vfe/device/gc2035.mod.o LD [M] drivers/media/video/sunxi-vfe/device/gc2035.ko
+
+Driver will be in:
+
+output/lib/modules/3.4.39/kernel/drivers/media/video/sunxi-vfe/device/gc2035.ko
+
+copy the file to:
+
+/lib/modules/3.4.39/kernel/drivers/media/video/sunxi-vfe/device/.
