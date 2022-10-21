@@ -7,6 +7,7 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage
 
 from server import open_webcam, get_ngrok_URL
 from pyngrok import ngrok
+from create_data import setface
 from PWM import *
 
 app = Flask(__name__)
@@ -17,19 +18,13 @@ handler = WebhookHandler('39e09da5ec6ccdc24b2848ed3b055336') #Channel secret
 ngrok_token = "2EFlxQQDpreqVGMuQVTtTepMzHB_7Px3VmMDjcQxgLoDH7Ync"
 
 webcam_URL = None
+status = 0 #[empty, 0], [occupy, 1], [input facename, 2]
 
 emoji1 = [
     {
         "index": 0,
         "productId": "5ac21c46040ab15980c9b442",
         "emojiId": "008"
-    }
-]
-emoji2 = [
-    {
-        "index": 33,
-        "productId": "5ac21e6c040ab15980c9b444",
-        "emojiId": "020"
     }
 ]
 
@@ -58,6 +53,8 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 
 def handle_message(event):
+
+    global status
     
     if isinstance(event.message, TextMessage):
 
@@ -65,12 +62,17 @@ def handle_message(event):
         userid = event.source.user_id
         #groupid = event.source.group_id
 
-        if mtext == "Webcam":
+        if status == 1:
 
+            line_bot_api.reply_message(event.reply_token, TextSendMessage("$Channel is occupy, please wait...", emojis = emoji1))
+
+        elif mtext == "Webcam" and status == 0:
+
+            status = 1
             line_bot_api.reply_message(event.reply_token, TextSendMessage("$Connecting Webcam...", emojis = emoji1))
 
             #webcam_URL = get_ngrok_URL()
-            
+
 
             if (type(webcam_URL) == type("string")):
 
@@ -81,33 +83,52 @@ def handle_message(event):
                 line_bot_api.push_message(userid, TextSendMessage("$Connection Fail, Please retry later.", emojis = emoji1))
 
             open_webcam()
+            status = 0
 
+        elif mtext == "Box1" and status == 0:
 
-        elif mtext == "Box1":
             
+            status = 1
+
             line_bot_api.reply_message(event.reply_token, TextSendMessage("$Opening Box1 for you...", emojis = emoji1))
             
             PWM = PWM_Control()
             
             PWM.initial()
             PWM.Open()
-            PWM.Reset()
 
+            status = 0
 
-        elif mtext == "Box2":
+        elif mtext == "Box2" and status == 0:
+            
+
+            status = 1
 
             PWM = PWM_Control()
             
             PWM.initial()
             PWM.Open()
-            PWM.Reset()
 
-            line_bot_api.reply_message(event.reply_token, TextSendMessage("$Opening Box2 for you...", emojis = emoji2))            
+            line_bot_api.reply_message(event.reply_token, TextSendMessage("$Opening Box2 for you...", emojis = emoji2))     
 
-        elif mtext == "Set":
+            status = 0  
+    
+        elif mtext == "SetFace" and status == 0:
             
-            line_bot_api.reply_message(event.reply_token, TextSendMessage("$You really want to set schedule?", emojis = emoji2))
-        
+            status = 1
+
+            line_bot_api.reply_message(event.reply_token, TextSendMessage("$input your name, before setting face...", emojis = emoji1))
+
+            status = 2
+
+        elif status == 2:
+            
+            line_bot_api.reply_message(event.reply_token, TextSendMessage("$Having U'r face in front of Camera for 5 Sec when light is on...", emojis = emoji1))
+
+            line_bot_api.push_message(userid, TextSendMessage(mtext + setface(mtext)))
+
+            status = 0
+
         else:
 
             line_bot_api.reply_message(event.reply_token, TextSendMessage("$Shut Up!", emojis = emoji1))

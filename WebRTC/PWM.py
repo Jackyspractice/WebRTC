@@ -55,34 +55,14 @@ class PWM_Control:
         PWM.start(SG90_Degree[0].duty)
         sleep(0.5)
 
-        for j in range (0, Turns):
-
-            print("Turns:" , j)
-
-            for i in range (1, 5):
-
-                PWM.changeDutyCycle(SG90_Degree[i].duty)
-                sleep(0.5)
-
-
         PWM.stop()
 
     def Close(self):    #counter clockwise turns
 
         print("Closing...")
 
-        PWM.start(SG90_Degree[0].duty)
+        PWM.start(SG90_Degree[4].duty)
         sleep(0.5)
-
-        for j in range (0, Turns):
-
-            print("Turns:", j)
-
-            for i in range (1, 5):
-
-                PWM.changeDutyCycle(SG90_Degree[5 - i].duty)
-                sleep(0.5)
-
 
         PWM.stop()
 
@@ -99,11 +79,4 @@ class PWM_Control:
         self.initial_SG90()
         PWM = OrangePwm(SG90_Degree[0].frequence, port.PA6)
 
-    def Reset(self):    #reset sg90 to 0 degree
-
-        global PWM
-
-        print("Reset position")
-        PWM.start(SG90_Degree[0].duty)
-        PWM.stop()
 

@@ -5,6 +5,7 @@ import os
 import uuid
 import json
 import platform
+import random
 
 from aiohttp import web
 from aiortc import RTCPeerConnection, RTCSessionDescription
@@ -19,6 +20,7 @@ pcs = set()
 ROOT = os.path.dirname(__file__)
 relays = None
 webcam = None
+vaild = "First"
 
 class parser:
 
@@ -118,6 +120,10 @@ async def offer(request):
         ),
     )
 
+def unvaild(request):
+
+    return "URL isn't vaild!"
+
 def set_page(app0):
 
     app0.on_shutdown.append(on_shutdown)
@@ -136,6 +142,7 @@ def get_ngrok_URL():
     return http_tunnel.public_url
 
 def open_webcam():
+
     #setting INFO MODE
     parser_setting = parser()
     parser_setting.set_parser()
@@ -149,6 +156,7 @@ def open_webcam():
         app, access_log=None, host=args.host, port=args.port, ssl_context=None
     )
 
+    
 if __name__ == "__main__":
 
     open_webcam()
