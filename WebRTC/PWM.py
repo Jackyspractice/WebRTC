@@ -72,6 +72,7 @@ class PWM_Control:
         PWM = OrangePwm(SG90_Degree[0].frequence, port.PA6)
 
     def active(self):
+
         global PWM
 
         PWM.Open()
@@ -81,7 +82,6 @@ class PWM_Control:
 
 if __name__ == "__main__":
 
-    PWM = PWM_Control()
-            
-    PWM.initial()
-    PWM.active()
+    pwm = PWM_Control()
+    pwm.initial()
+    pwm.active()
