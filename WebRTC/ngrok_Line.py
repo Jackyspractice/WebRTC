@@ -1,6 +1,6 @@
 from pyngrok import ngrok
 
-token = "2EFlxQQDpreqVGMuQVTtTepMzHB_7Px3VmMDjcQxgLoDH7Ync"
+token = "2FM9hVmFjGxvAQLtqhzUouXBvMB_35eUbpExjAaERX4Rr7Bh2"
 
 
 ngrok.set_auth_token(token)
