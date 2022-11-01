@@ -93,10 +93,10 @@ def handle_message(event):
 
             line_bot_api.reply_message(event.reply_token, TextSendMessage("$Opening Box1 for you...", emojis = emoji1))
             
-            PWM = PWM_Control()
+            pwm = PWM_Control()
             
-            PWM.initial()
-            PWM.active()
+            pwm.initial()
+            pwm.active()
 
             status = 0
 
@@ -105,10 +105,10 @@ def handle_message(event):
 
             status = 1
 
-            PWM = PWM_Control()
+            pwm = PWM_Control()
             
-            PWM.initial()
-            PWM.active()
+            pwm.initial()
+            pwm.active()
 
             line_bot_api.reply_message(event.reply_token, TextSendMessage("$Opening Box2 for you...", emojis = emoji1))     
 
