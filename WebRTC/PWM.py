@@ -5,7 +5,7 @@ from orangepwm import *
 
 SG90_Degree = []
 PWM = None
-Turns = 5
+runtime = 5
 
 class SG90:
 
@@ -21,48 +21,40 @@ class SG90:
 
         Degree_0 = SG90()
         Degree_0.degree = 0
-        Degree_0.duty = 2.5
+        Degree_0.duty = 2
         SG90_Degree.append(Degree_0)
-
-        Degree_45 = SG90()
-        Degree_45.degree = 45
-        Degree_45.duty = 5
-        SG90_Degree.append(Degree_45)
 
         Degree_90 = SG90()
         Degree_90.degree = 90
-        Degree_90.duty = 7.5
+        Degree_90.duty = 7
         SG90_Degree.append(Degree_90)
-
-        Degree_135 = SG90()
-        Degree_135.degree = 135
-        Degree_135.duty = 10
-        SG90_Degree.append(Degree_135)
 
         Degree_180 = SG90()
         Degree_180.degree = 180
-        Degree_180.duty = 12.5
+        Degree_180.duty = 10
         SG90_Degree.append(Degree_180)
 
 class PWM_Control:
 
     def Open(self): #clockwise, turns
 
+        global PWM
+        
         print("Opening...")
 
-        global PWM
-
         PWM.start(SG90_Degree[0].duty)
-        sleep(0.5)
+        sleep(runtime)
 
-        PWM.stop()
+        PWM.changeDutyCycle(SG90_Degree[1].duty)
 
     def Close(self):    #counter clockwise turns
 
+        global PWM
+
         print("Closing...")
 
-        PWM.start(SG90_Degree[4].duty)
-        sleep(0.5)
+        PWM.changeDutyCycle(SG90_Degree[2].duty)
+        sleep(runtime)
 
         PWM.stop()
 
@@ -79,4 +71,9 @@ class PWM_Control:
         self.initial_SG90()
         PWM = OrangePwm(SG90_Degree[0].frequence, port.PA6)
 
+    def active(self):
 
+        PWM_Control.Open()
+        print("Waiting for Close...")
+        sleep(runtime)
+        PWM_Control.Close()

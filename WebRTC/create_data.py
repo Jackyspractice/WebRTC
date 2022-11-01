@@ -13,13 +13,14 @@ def setface(name):
     total = 100
     
     if os.path.isdir('images/' + name):
-        print('此姓名已建立！')
+        print('Name Already exist!')
         return " Name Already exist!"
     else:
         os.mkdir('images/' + name)
-        face_cascade = cv2.CascadeClassifier("/home/jacky/Desktop/WebRTC/WebRTC/haarcascade_frontalface_alt2.xml")
+        #face_cascade = cv2.CascadeClassifier("/home/jacky/Desktop/WebRTC/WebRTC/haarcascade_frontalface_alt2.xml")
+        face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_alt2.xml")
         cap = cv2.VideoCapture(0)
-        print("開啟攝影機")
+        print("Opening Camera")
         cv2.namedWindow('video', cv2.WINDOW_NORMAL)
         while index > 0:
             ret, frame = cap.read()
@@ -33,7 +34,7 @@ def setface(name):
                 sleep(0.1)
                 index += 1
                 if index > total:
-                    print('取樣完成！')
+                    print('Sampling Complete!')
                     index = -1
                     break
             cv2.imshow('video', frame)
@@ -60,11 +61,12 @@ def setface(name):
     f.write(','.join(labelstr))
     f.close()
 
-    print('開始建立模型...')
+    print('Building Model...')
     model = cv2.face.LBPHFaceRecognizer_create()  
     model.train(np.asarray(images), np.asarray(labels))
-    model.save("faces_LBPH_" + name + ".yml")
-    print('建立模型完成！')
+    #model.save("faces_LBPH_" + name + ".yml")
+    model.save("faces_LBPH.yml")
+    print('Model built Successfully!')
     return " Buliding Successfully!"
 
 

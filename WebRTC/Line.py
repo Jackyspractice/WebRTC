@@ -10,6 +10,7 @@ from pyngrok import ngrok
 from create_data import setface
 from PWM import *
 
+
 app = Flask(__name__)
 
 #token
@@ -95,7 +96,7 @@ def handle_message(event):
             PWM = PWM_Control()
             
             PWM.initial()
-            PWM.Open()
+            PWM.active()
 
             status = 0
 
@@ -107,7 +108,7 @@ def handle_message(event):
             PWM = PWM_Control()
             
             PWM.initial()
-            PWM.Open()
+            PWM.active()
 
             line_bot_api.reply_message(event.reply_token, TextSendMessage("$Opening Box2 for you...", emojis = emoji1))     
 
