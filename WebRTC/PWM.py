@@ -77,3 +77,10 @@ class PWM_Control:
         print("Waiting for Close...")
         sleep(runtime)
         PWM_Control.Close()
+
+if __name__ == "__main__":
+
+    PWM = PWM_Control()
+            
+    PWM.initial()
+    PWM.active()
