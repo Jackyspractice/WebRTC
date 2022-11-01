@@ -72,11 +72,12 @@ class PWM_Control:
         PWM = OrangePwm(SG90_Degree[0].frequence, port.PA6)
 
     def active(self):
+        global PWM
 
-        self.Open()
+        PWM.Open()
         print("Waiting for Close...")
         sleep(runtime)
-        self.Close()
+        PWM.Close()
 
 if __name__ == "__main__":
 
