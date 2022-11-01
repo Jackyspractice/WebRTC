@@ -10,7 +10,9 @@ from pyngrok import ngrok
 from create_data import setface
 from PWM import *
 
-
+import logging
+import argparse
+logger = logging.getLogger("pc")
 app = Flask(__name__)
 
 #token
@@ -28,6 +30,34 @@ emoji1 = [
         "emojiId": "008"
     }
 ]
+
+class parser:
+
+    args = None
+
+    def set_logging_level(self):
+
+        if args.verbose:
+            logging.basicConfig(level = logging.DEBUG)
+            print("Debuge MODE")
+        else:
+            logging.basicConfig(level = logging.INFO)
+            print("INFO MODE")
+
+    def set_parser(self):
+
+        global args
+
+        parser = argparse.ArgumentParser(
+            description = "Line"
+        )
+
+        parser.add_argument("--verbose", "-v", action = "count")
+
+        args = parser.parse_args()
+
+        self.set_logging_level()
+
 
 class Student:
 
@@ -149,5 +179,7 @@ def open_port():
 
 if __name__ == '__main__':
 
+    parser_setting = parser()
+    parser_setting.set_parser()
     open_port()
     app.run()
