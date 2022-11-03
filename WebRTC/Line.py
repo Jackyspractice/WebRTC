@@ -134,13 +134,13 @@ def handle_message(event):
             
 
             status = 1
+            line_bot_api.reply_message(event.reply_token, TextSendMessage("$Opening Box2 for you...", emojis = emoji1))     
 
             pwm = PWM_Control()
             
             pwm.initial()
             pwm.active()
 
-            line_bot_api.reply_message(event.reply_token, TextSendMessage("$Opening Box2 for you...", emojis = emoji1))     
 
             status = 0  
     
