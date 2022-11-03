@@ -179,7 +179,5 @@ def open_port():
 
 if __name__ == '__main__':
 
-    parser_setting = parser()
-    parser_setting.set_parser()
     open_port()
     app.run()
