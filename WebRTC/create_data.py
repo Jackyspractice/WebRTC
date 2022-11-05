@@ -17,8 +17,8 @@ def setface(name):
         return " Name Already exist!"
     else:
         os.mkdir('images/' + name)
-        face_cascade = cv2.CascadeClassifier("/home/jacky/Desktop/WebRTC/WebRTC/haarcascade_frontalface_alt2.xml")
-        #face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_alt2.xml")
+        #face_cascade = cv2.CascadeClassifier("/home/jacky/Desktop/WebRTC/WebRTC/haarcascade_frontalface_alt2.xml")
+        face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_alt2.xml")
         cap = cv2.VideoCapture(0)
         print("Opening Camera")
         cv2.namedWindow('video', cv2.WINDOW_NORMAL)

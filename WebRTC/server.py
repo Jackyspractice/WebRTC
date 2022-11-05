@@ -5,11 +5,14 @@ import os
 import uuid
 import json
 import platform
-import random
+import signal
 
 from aiohttp import web
 from aiortc import RTCPeerConnection, RTCSessionDescription
 from aiortc.contrib.media import MediaPlayer, MediaRelay
+
+import multiprocessing
+import time
 
 from pyngrok import ngrok
 
@@ -21,6 +24,8 @@ ROOT = os.path.dirname(__file__)
 relays = None
 webcam = None
 vaild = "First"
+process_sleep = None
+main_pid = -1
 
 class parser:
 
@@ -141,8 +146,20 @@ def get_ngrok_URL():
 
     return http_tunnel.public_url
 
+def sleep_kill(pid):
+
+    sec = 50
+    print("start countdown " + str(sec) + "sec")
+    time.sleep(sec)
+
+    print("exit process = ", pid)
+    os.kill(pid, signal.SIGTERM)
+
+
+
 def open_webcam():
 
+    
     #setting INFO MODE
     parser_setting = parser()
     parser_setting.set_parser()
@@ -155,10 +172,17 @@ def open_webcam():
     web.run_app(
         app, access_log=None, host=args.host, port=args.port, ssl_context=None
     )
+    
 
     
 if __name__ == "__main__":
 
+
+    main_pid = os.getpid()
+    process_sleep = multiprocessing.Process(target = sleep_kill, args=(main_pid,))
+    process_sleep.start()
+
+    print("start main")
     open_webcam()
 
 

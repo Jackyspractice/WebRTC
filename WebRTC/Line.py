@@ -8,7 +8,10 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage
 from server import open_webcam, get_ngrok_URL
 from pyngrok import ngrok
 from create_data import setface
-from PWM import *
+#from PWM import *
+
+import time
+import subprocess
 
 import logging
 import argparse
@@ -22,6 +25,8 @@ ngrok_token = "2EFlxQQDpreqVGMuQVTtTepMzHB_7Px3VmMDjcQxgLoDH7Ync"
 
 webcam_URL = None
 status = 0 #[empty, 0], [occupy, 1], [input facename, 2]
+sub = None
+sub_webcam = None
 
 emoji1 = [
     {
@@ -85,9 +90,15 @@ def callback():
 
 def handle_message(event):
 
-    global status
+    global status, sub, sub_webcam
     
     if isinstance(event.message, TextMessage):
+
+        if sub_webcam != None:
+            sub_webcam.terminate()
+            sub_webcam = None
+            sub = subprocess.Popen("python Regcon.py")
+
 
         mtext = event.message.text
         userid = event.source.user_id
@@ -104,6 +115,15 @@ def handle_message(event):
 
             #webcam_URL = get_ngrok_URL()
 
+            try:
+                sub.terminate()
+                sub = None
+            except:
+                print("no subprocess opened")
+
+            sub_webcam = subprocess.Popen("python server.py")
+
+            time.sleep(1)
 
             if (type(webcam_URL) == type("string")):
 
@@ -113,7 +133,8 @@ def handle_message(event):
 
                 line_bot_api.push_message(userid, TextSendMessage("$Connection Fail, Please retry later.", emojis = emoji1))
 
-            open_webcam()
+            #open_webcam()
+
             status = 0
 
         elif mtext == "Box1" and status == 0:
@@ -156,13 +177,28 @@ def handle_message(event):
             
             line_bot_api.reply_message(event.reply_token, TextSendMessage("$Having U'r face in front of Camera for 5 Sec when light is on...", emojis = emoji1))
 
+            try:
+                sub.terminate()
+                sub = None
+            except:
+                print("no regcon subprocess opened")
+
+            try:
+                sub_webcam.terminate()
+                sub_webcam = None
+            except:
+                print("no webcam subprocess opened")
+
+
             line_bot_api.push_message(userid, TextSendMessage(mtext + setface(mtext)))
 
             status = 0
+            sub = subprocess.Popen("python Regcon.py")
 
         else:
 
             line_bot_api.reply_message(event.reply_token, TextSendMessage("$Shut Up!", emojis = emoji1))
+
 
 def open_port():
 
@@ -179,5 +215,6 @@ def open_port():
 
 if __name__ == '__main__':
 
+    sub = subprocess.Popen("python Regcon.py")
     open_port()
     app.run()

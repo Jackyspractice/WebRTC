@@ -1,6 +1,6 @@
 import cv2
 import time
-from PWM import *
+#from PWM import *
 
 cap = cv2.VideoCapture(0)
 
@@ -14,8 +14,8 @@ class Recognize:
         model.read('faces_LBPH.yml')
         f = open('member.txt', 'r')  #讀入模型
         names = f.readline().split(',')  #讀入姓名存於串列
-        face_cascade = cv2.CascadeClassifier("/home/jacky/Desktop/WebRTC/WebRTC/haarcascade_frontalface_alt2.xml")
-        #face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_alt2.xml")
+        #face_cascade = cv2.CascadeClassifier("/home/jacky/Desktop/WebRTC/WebRTC/haarcascade_frontalface_alt2.xml")
+        face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_alt2.xml")
         #cap = cv2.VideoCapture(0)
         #cv2.namedWindow('frame', cv2.WINDOW_NORMAL)
 
@@ -92,8 +92,8 @@ class Recognize:
 
         global cap
         
-        detector = cv2.CascadeClassifier("/home/jacky/Desktop/WebRTC/WebRTC/haarcascade_frontalface_default.xml")
-        #detector = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+        #detector = cv2.CascadeClassifier("/home/jacky/Desktop/WebRTC/WebRTC/haarcascade_frontalface_default.xml")
+        detector = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
         if (cap.isOpened() == False):
             return False, "CamERROR"
