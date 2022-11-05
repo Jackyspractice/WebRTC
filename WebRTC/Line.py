@@ -195,6 +195,31 @@ def handle_message(event):
 
             status = 3
 
+        elif mtext == "Delete" and status == 0:
+
+            status = 1
+
+            try:
+                sub.terminate()
+                sub = None
+            except:
+                print("no regcon subprocess opened")
+            
+            list = set.find_all_people()
+
+            if list == -1:
+                line_bot_api.reply_message(event.reply_token, TextSendMessage("No any person exist!"))
+                status = 0
+            else:
+                line_bot_api.reply_message(event.reply_token, Namelist(list))
+                status = 6
+
+        elif status == 6: # delete person
+
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(set.delete_person(mtext)))
+            status = 0
+            sub = subprocess.Popen("python Regcon.py")
+
         elif status == 3: # schedule who
 
             setlist.clear()
