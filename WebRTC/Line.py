@@ -139,33 +139,13 @@ def handle_message(event):
 
             status = 0
 
-        elif mtext == "Box1" and status == 0:
-
+        elif mtext == "OpenBox" and status == 0:
             
             status = 1
 
-            line_bot_api.reply_message(event.reply_token, TextSendMessage("$Opening Box1 for you...", emojis = emoji1))
-            
-            pwm = PWM_Control()
-            
-            pwm.initial()
-            pwm.active()
+            line_bot_api.reply_message(event.reply_token, Carousel_Box())      
 
-            status = 0
-
-        elif mtext == "Box2" and status == 0:
-            
-
-            status = 1
-            line_bot_api.reply_message(event.reply_token, TextSendMessage("$Opening Box2 for you...", emojis = emoji1))     
-
-            pwm = PWM_Control()
-            
-            pwm.initial()
-            pwm.active()
-
-
-            status = 0  
+            status = 100
     
         elif mtext == "SetFace" and status == 0:
             
@@ -213,6 +193,14 @@ def handle_message(event):
             else:
                 line_bot_api.reply_message(event.reply_token, Namelist(list))
                 status = 6
+
+        elif mtext == "Show_Schedule" and status == 0:
+
+            status = 1
+            
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(set.All()))
+
+            status = 0
 
         elif status == 6: # delete person
 
@@ -264,6 +252,19 @@ def handle_message(event):
 
             status = 0
             sub = subprocess.Popen("python Regcon.py")
+
+        elif status == 100:
+            
+            number = mtext
+
+            line_bot_api.reply_message(event.reply_token, TextSendMessage("$Opening Box for you...", emojis = emoji1))
+            
+            pwm = PWM_Control()
+            
+            pwm.initial()
+            pwm.active()
+
+            status = 0
 
         else:
 

@@ -40,6 +40,20 @@ class store:
 
 class set_schedule:
 
+    def All(self):
+        data = "All Schedule\n"
+        file = open("schedule.txt", "r")
+        
+        lines = file.readlines()
+
+        for l in lines:
+            data += l
+        #data = lines.split("\n")
+
+        file.close()
+
+        return data
+
     def find_all_people(self):
         names = []
         names.clear()
@@ -97,21 +111,17 @@ class set_schedule:
 if __name__ == "__main__":
 
     set = set_schedule()
-    set.set("jacky", 1, 6)
-    set.set("jacky", 1, 6)
-    set.set("jacky", 1, 6)
-    set.set("jacky", 1, 6)
-    set.set("jacky", 1, 6)
-    set.set("jacky", 1, 6)
-    set.set("tim", 1, 6)
-    set.set("jacky", 1, 6)
-    set.set("tim", 1, 6)
+    #set.set("jacky", 1, 6)
+    #set.set("tim", 2, 3)
 
 
-    set.delete_person("tim")
+    #set.delete_person("tim")
 
     print("found")
     list = set.find_all_people()
     print("list len = ", len(list))
     for name in list:
         print(name)
+
+    data = set.All()
+    print(data)
