@@ -1,14 +1,15 @@
 #Line
-from flask import Flask
 from flask import Flask, request, abort
 from linebot import  LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
 
-from server import open_webcam, get_ngrok_URL
 from pyngrok import ngrok
 from create_data import setface
 #from PWM import *
+from schedule import *
+from build_template import *
+
 
 import time
 import subprocess
@@ -27,6 +28,8 @@ webcam_URL = None
 status = 0 #[empty, 0], [occupy, 1], [input facename, 2]
 sub = None
 sub_webcam = None
+set = set_schedule()
+setlist = []
 
 emoji1 = [
     {
@@ -98,7 +101,6 @@ def handle_message(event):
             sub_webcam.terminate()
             sub_webcam = None
             sub = subprocess.Popen("python Regcon.py")
-
 
         mtext = event.message.text
         userid = event.source.user_id
@@ -173,7 +175,50 @@ def handle_message(event):
 
             status = 2
 
-        elif status == 2:
+        elif mtext == "Set_Schedule" and status == 0:
+
+            status = 1
+
+            try:
+                sub.terminate()
+                sub = None
+            except:
+                print("no regcon subprocess opened")
+            
+            list = set.find_all_people()
+
+            if list == -1:
+                line_bot_api.reply_message(event.reply_token, TextSendMessage("No any person exist!"))
+            else:
+                line_bot_api.reply_message(event.reply_token, Namelist(list))
+
+
+            status = 3
+
+        elif status == 3: # schedule who
+
+            setlist.clear()
+            setlist.append(mtext)
+            line_bot_api.reply_message(event.reply_token, Carousel_Weekday())
+
+            status = 4
+
+        elif status == 4: # schedule weekday
+
+            setlist.append(mtext)
+            line_bot_api.reply_message(event.reply_token, Carousel_Box())
+
+            status = 5
+
+        elif status == 5: # schedule whichBox
+
+            setlist.append(mtext)
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(set.set(setlist[0], setlist[1], setlist[2])))
+
+            status = 0
+            sub = subprocess.Popen("python Regcon.py")
+
+        elif status == 2: #recieving setFace's name
             
             line_bot_api.reply_message(event.reply_token, TextSendMessage("$Having U'r face in front of Camera for 5 Sec when light is on...", emojis = emoji1))
 

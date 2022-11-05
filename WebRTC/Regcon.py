@@ -82,6 +82,7 @@ class Recognize:
                     else:
                         print('\n抱歉！你不是會員，無法登入！')
                         return False, "Sorry Not U"
+
                 except:
                     print('\n辨識時產生錯誤！')
                     return False, "RegERROR"

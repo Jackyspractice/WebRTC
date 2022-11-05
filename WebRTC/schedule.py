@@ -40,25 +40,78 @@ class store:
 
 class set_schedule:
 
-    def write_to_file(self):
-        print()
+    def find_all_people(self):
+        names = []
+        names.clear()
+
+        file = open("member.txt", "r")
+        line = file.readline()
+        names = line.split(",")
+
+        file.close()
+        return names
+
+
+
+    def delete_person(self, name):
+        write_data = []
+        write_data.clear()
+        file = open("schedule.txt", "r")
+        lines = file.readlines()
+        file.close()
+
+        index = 0
+        for line in lines:
+            index += 1
+            temp = line
+            line = line.split(",")
+            if (line[0] != name):
+                write_data.append(temp)
+
+        
+        if (len(write_data) == index):
+            return "Person doesn't exist!"
+
+        file = open("schedule.txt", "w")
+        for data in write_data:
+            file.write(data)
+        file.close()
+
+        write_data.clear()
+        return "delete successfully!"
+
+    def write_to_file(self, name, weekday, box):
+        file = open("schedule.txt", "a")
+        file.write(str(name) + "," + str(weekday) + "," + str(box) + "\n")
+        file.close()
+        return "add successfully!"
         
     def set(self, name, weekday, box):
 
-        All_Box[box - 1] = store.Box(name, weekday)
-        All_Weekday[weekday - 1] = store.Weekday(name, box)
-        All_Person.append(store.Person(name, weekday, box))
+        #All_Box[box - 1] = store.Box(name, weekday)
+        #All_Weekday[weekday - 1] = store.Weekday(name, box)
+        #All_Person.append(store.Person(name, weekday, box))
+
+        return self.write_to_file(name, weekday, box)
 
 if __name__ == "__main__":
 
     set = set_schedule()
     set.set("jacky", 1, 6)
+    set.set("jacky", 1, 6)
+    set.set("jacky", 1, 6)
+    set.set("jacky", 1, 6)
+    set.set("jacky", 1, 6)
+    set.set("jacky", 1, 6)
+    set.set("tim", 1, 6)
+    set.set("jacky", 1, 6)
+    set.set("tim", 1, 6)
 
-    print(All_Person[0].name)
-    print("Box number = " + str(All_Person[0].weekday[0]))
 
-    print(All_Box[5].name)
-    print(All_Box[5].weekday)
+    set.delete_person("tim")
 
-    print(All_Weekday[0].name)
-    print(All_Weekday[0].box)
+    print("found")
+    list = set.find_all_people()
+    print("list len = ", len(list))
+    for name in list:
+        print(name)
