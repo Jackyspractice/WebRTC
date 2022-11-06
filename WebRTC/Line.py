@@ -19,15 +19,15 @@ import argparse
 logger = logging.getLogger("pc")
 app = Flask(__name__)
 
-#token
+#tokens
 line_bot_api = LineBotApi('hy1MPmID80D6fM0jPXOKEjKO7MzZFOAiqHgLVlE1yBWeNHwYlPxDPxLqUBd4zm/XyOE/89iMmvZ69fnekdps9Y9hgbOr3Mvmi0nkp/jDlIydLrhC0k1A7RwL7QMQEkp6LzX7WkEEF4BQZV6/OOqypgdB04t89/1O/w1cDnyilFU=')
 handler = WebhookHandler('39e09da5ec6ccdc24b2848ed3b055336') #Channel secret
 ngrok_token = "2EFlxQQDpreqVGMuQVTtTepMzHB_7Px3VmMDjcQxgLoDH7Ync"
 
 webcam_URL = None
-status = 0 #[empty, 0], [occupy, 1], [input facename, 2]
-sub = None
-sub_webcam = None
+status = 0 #[empty, 0], [occupy, 1], [input facename, 2]...elses check FSM
+sub = None #for Regcon.py
+sub_webcam = None #for server.py
 set = set_schedule()
 setlist = []
 
@@ -65,13 +65,6 @@ class parser:
         args = parser.parse_args()
 
         self.set_logging_level()
-
-
-class Student:
-
-    def __init__(self, user = None, passwd = None):
-        self.user = user
-        self.passwd = passwd
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -142,6 +135,12 @@ def handle_message(event):
         elif mtext == "OpenBox" and status == 0:
             
             status = 1
+
+            try:
+                sub.terminate()
+                sub = None
+            except:
+                print("no regcon subprocess opened")
 
             line_bot_api.reply_message(event.reply_token, Carousel_Box())      
 
@@ -259,17 +258,20 @@ def handle_message(event):
 
             line_bot_api.reply_message(event.reply_token, TextSendMessage("$Opening Box for you...", emojis = emoji1))
             
-            pwm = PWM_Control()
-            
-            pwm.initial()
-            pwm.active()
+            try:
+                pwm = PWM_Control()
+                
+                pwm.initial()
+                pwm.active(number)
+            except:
+                print("PWM Error!")
 
+            sub = subprocess.Popen("python Regcon.py")
             status = 0
 
         else:
 
             line_bot_api.reply_message(event.reply_token, TextSendMessage("$Shut Up!", emojis = emoji1))
-
 
 def open_port():
 

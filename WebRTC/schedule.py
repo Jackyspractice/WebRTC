@@ -41,7 +41,7 @@ class store:
 class set_schedule:
 
     def All(self):
-        data = "All Schedule\n"
+        data = "All Schedule\n(Name, Weekday, Box)\n"
         file = open("schedule.txt", "r")
         
         lines = file.readlines()
@@ -52,7 +52,7 @@ class set_schedule:
 
         file.close()
 
-        return data
+        return data + "-END of List-"
 
     def find_all_people(self):
         names = []
@@ -65,7 +65,23 @@ class set_schedule:
         file.close()
         return names
 
+    def find_person_box(self, name):
+        person_data = []
+        person_data.clear()
+        file = open("schedule.txt", "r")
+        lines = file.readlines()
+        file.close()
 
+        index = 0
+        for line in lines:
+            index += 1
+            temp = line
+            line = line.split(",")
+            if (line[0] == name):
+                person_data.append(temp)
+
+        return person_data
+        
 
     def delete_person(self, name):
         write_data = []

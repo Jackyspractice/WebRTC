@@ -1,6 +1,9 @@
 import cv2
 import time
+from datetime import datetime
 #from PWM import *
+
+from schedule import *
 
 cap = cv2.VideoCapture(0)
 
@@ -22,7 +25,7 @@ class Recognize:
         timenow = time.time()  #取得現在時間數值
         
         if (cap.isOpened() == False):
-            return False, "CamERROR"
+            return False
         
         '''
         while(cap.isOpened()):  #cam開啟成功
@@ -73,22 +76,20 @@ class Recognize:
                         #PWM Here
                         #------------------------------------------------
 
-                        print("opening box for you...")
+
 
                         #------------------------------------------------
 
 
-                        return True, "Success"
+                        return names[val[0]]
                     else:
                         print('\n抱歉！你不是會員，無法登入！')
-                        return False, "Sorry Not U"
+                        return False
 
                 except:
                     print('\n辨識時產生錯誤！')
-                    return False, "RegERROR"
+                    return False
             
-            #print("\n沒有人啊?")
-
     def anyone(self):
 
         global cap
@@ -124,6 +125,48 @@ class Recognize:
         #cap.release()  #關閉cam
         #cv2.destroyAllWindows()
 
+def Open_Box(boxnum):
+
+    print("opening box" + boxnum, end = "")
+
+    try:
+        pwm = PWM_Control()
+                
+        pwm.initial()
+        pwm.active(boxnum)
+
+    except:
+
+        print("PWM Error!")
+
+
+def find_which_box(person):
+
+    set = set_schedule()
+
+    today = datetime.today().isoweekday()
+    print("Today is", today)
+    list = set.find_person_box(person)
+
+    if len(list) == 0:
+
+        print("Your Schedule Not Found!")
+        return -1
+
+    for line in list:
+
+        line = line.split(",")
+        print("set weekday is ", line[1])
+
+        if line[1] == str(today):
+
+            Open_Box(line[2])
+
+            return 0
+        
+    print("Not Today!")
+    return -1
+
 if __name__ == "__main__":
 
     Reg = Recognize()
@@ -132,4 +175,7 @@ if __name__ == "__main__":
 
         if Reg.anyone():
 
-            Reg.whoareu()
+            person = Reg.whoareu()
+
+            if person != False:
+                find_which_box(person)

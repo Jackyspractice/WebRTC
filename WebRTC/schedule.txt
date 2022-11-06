@@ -1,5 +1,4 @@
 jacky,1,6
-jacky,2,2
-jacky,3,3
-tim,2,3
-tim,3,5
+jacky,2,3
+jacky,7,3
+tim,2,4

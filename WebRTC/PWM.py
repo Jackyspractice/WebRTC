@@ -6,6 +6,7 @@ from orangepwm import *
 SG90_Degree = []
 PWM = None
 runtime = 5
+Box_GPIO_port = ["PA0", "PA1", "PA2", "PA3", "PA4", "PA5"]
 
 class SG90:
 
@@ -36,9 +37,11 @@ class SG90:
 
 class PWM_Control:
 
-    def Open(self): #clockwise, turns
+    def Open(self, which_box): #clockwise, turns
 
-        global PWM
+        global PWM, Box_GPIO_port
+
+        gpio.setcfg(port.Box_GPIO_port[which_box - 1], 1)
         
         print("Opening...")
 
@@ -47,11 +50,13 @@ class PWM_Control:
 
         PWM.changeDutyCycle(SG90_Degree[1].duty)
 
-    def Close(self):    #counter clockwise turns
+    def Close(self, which_box):    #counter clockwise turns
 
-        global PWM
+        global PWM, Box_GPIO_port
 
         print("Closing...")
+
+        gpio.setcfg(port.Box_GPIO_port[which_box - 1], 0)
 
         PWM.changeDutyCycle(SG90_Degree[2].duty)
         sleep(runtime)
@@ -63,20 +68,36 @@ class PWM_Control:
         SGobj = SG90()
         SGobj.Set_degree_argument()
 
+    def GPIO_initial(self):
+
+        global Box_GPIO_port
+        
+        for num in Box_GPIO_port:
+
+            gpio.setcfg(port.num, gpio.OUTPUT)
+            gpio.setcfg(port.num, 0)
+
     def initial(self):  #initial SG90 Argument & PWM frequence/Port
 
         global PWM
 
         gpio.init()
+        self.GPIO_initial()
         self.initial_SG90()
         PWM = OrangePwm(SG90_Degree[0].frequence, port.PA6)
 
-    def active(self):
+    def active(self, which_box):
 
-        self.Open()
-        print("Waiting for Close...")
-        sleep(runtime * 2)
-        self.Close()
+        try:
+            self.Open(int(which_box))
+            print("Waiting for Close...")
+            sleep(runtime * 2)
+            self.Close(int(which_box))
+
+            return True
+        except:
+
+            return False
 
 if __name__ == "__main__":
 
