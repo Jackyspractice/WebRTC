@@ -6,7 +6,7 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage
 
 from pyngrok import ngrok
 from create_data import setface
-#from PWM import *
+from PWM import *
 from schedule import *
 from build_template import *
 
