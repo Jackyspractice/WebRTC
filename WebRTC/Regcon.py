@@ -5,7 +5,7 @@ from PWM import *
 
 from schedule import *
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 
 class Recognize:
 

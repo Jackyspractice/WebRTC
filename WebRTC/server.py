@@ -76,7 +76,7 @@ def create_local_tracks():
                 "video=USB2.0 HD UVC WebCam", format="dshow", options=options
             )
         else:
-            webcam = MediaPlayer("/dev/video0", format="v4l2", options=options)
+            webcam = MediaPlayer("/dev/video1", format="v4l2", options=options)
         relays = MediaRelay()
     return relays.subscribe(webcam.video)
 
