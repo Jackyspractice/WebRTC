@@ -103,4 +103,4 @@ if __name__ == "__main__":
 
     pwm = PWM_Control()
     pwm.initial()
-    pwm.active()
+    pwm.active("2")
