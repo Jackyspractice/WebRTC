@@ -153,8 +153,10 @@ def sleep_kill(pid):
     time.sleep(sec)
 
     print("exit process = ", pid)
-    os.kill(pid, signal.SIGTERM)
-
+    try:
+        os.kill(pid, signal.SIGTERM)
+    except:
+        print("Aleardy kill")
 
 
 def open_webcam():
