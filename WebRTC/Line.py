@@ -124,7 +124,7 @@ def handle_message(event):
             except:
                 print("no subprocess opened")
 
-            sub_webcam = subprocess.Popen("exec python3 " + server_path + " --play-without-decoding", shell = True)
+            sub_webcam = subprocess.Popen("exec python3 " + server_path + " --play-without-decoding --video-codec video/H264", shell = True)
 
             time.sleep(1)
 
