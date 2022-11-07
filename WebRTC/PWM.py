@@ -37,12 +37,57 @@ class SG90:
 
 class PWM_Control:
 
+
+    def GPIO_set_HIGH(self, which_box):
+
+        global Box_GPIO_port
+
+        if Box_GPIO_port[which_box - 1] == "PA1":
+            gpio.setcfg(port.PA1, 1)
+
+        elif Box_GPIO_port[which_box - 1] == "PA0":
+            gpio.setcfg(port.PA0, 1)
+
+        elif Box_GPIO_port[which_box - 1] == "PA3":
+            gpio.setcfg(port.PA3, 1)
+        
+        elif Box_GPIO_port[which_box - 1] == "PA7":
+            gpio.setcfg(port.PA7, 1)
+        
+        elif Box_GPIO_port[which_box - 1] == "PA19":
+            gpio.setcfg(port.PA19, 1)
+        
+        elif Box_GPIO_port[which_box - 1] == "PA18":
+            gpio.setcfg(port.PA18, 1)
+
+    def GPIO_set_LOW(self, which_box):
+
+        global Box_GPIO_port
+
+        if Box_GPIO_port[which_box - 1] == "PA1":
+            gpio.setcfg(port.PA1, 0)
+
+        elif Box_GPIO_port[which_box - 1] == "PA0":
+            gpio.setcfg(port.PA0, 0)
+
+        elif Box_GPIO_port[which_box - 1] == "PA3":
+            gpio.setcfg(port.PA3, 0)
+        
+        elif Box_GPIO_port[which_box - 1] == "PA7":
+            gpio.setcfg(port.PA7, 0)
+        
+        elif Box_GPIO_port[which_box - 1] == "PA19":
+            gpio.setcfg(port.PA19, 0)
+        
+        elif Box_GPIO_port[which_box - 1] == "PA18":
+            gpio.setcfg(port.PA18, 0)
+
     def Open(self, which_box): #clockwise, turns
 
-        global PWM, Box_GPIO_port
+        global PWM
 
-        gpio.setcfg(port.Box_GPIO_port[which_box - 1], 1)
-        
+        self.GPIO_set_HIGH(which_box)
+
         print("Opening...")
 
         PWM.start(SG90_Degree[0].duty)
@@ -52,11 +97,11 @@ class PWM_Control:
 
     def Close(self, which_box):    #counter clockwise turns
 
-        global PWM, Box_GPIO_port
+        global PWM
 
         print("Closing...")
 
-        gpio.setcfg(port.Box_GPIO_port[which_box - 1], 0)
+        self.GPIO_set_LOW(which_box)
 
         PWM.changeDutyCycle(SG90_Degree[2].duty)
         sleep(runtime)
@@ -69,13 +114,19 @@ class PWM_Control:
         SGobj.Set_degree_argument()
 
     def GPIO_initial(self):
-
-        global Box_GPIO_port
         
-        for i in range (0, len(Box_GPIO_port)):
-
-            gpio.setcfg(port.Box_GPIO_port[i], gpio.OUTPUT)
-            gpio.setcfg(port.Box_GPIO_port[i], 0)
+        gpio.setcfg(port.PA1, gpio.OUTPUT)
+        gpio.setcfg(port.PA1, 0)
+        gpio.setcfg(port.PA0, gpio.OUTPUT)
+        gpio.setcfg(port.PA0, 0)
+        gpio.setcfg(port.PA3, gpio.OUTPUT)
+        gpio.setcfg(port.PA3, 0)
+        gpio.setcfg(port.PA7, gpio.OUTPUT)
+        gpio.setcfg(port.PA7, 0)
+        gpio.setcfg(port.PA19, gpio.OUTPUT)
+        gpio.setcfg(port.PA19, 0)
+        gpio.setcfg(port.PA18, gpio.OUTPUT)
+        gpio.setcfg(port.PA18, 0)
 
     def initial(self):  #initial SG90 Argument & PWM frequence/Port
 
