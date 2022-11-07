@@ -19,7 +19,7 @@ import logging
 import argparse
 logger = logging.getLogger("pc")
 app = Flask(__name__)
-os_path = os.path.basename("Regcon.py")
+os_path = os.path.abspath("Regcon.py")
 
 #tokens
 line_bot_api = LineBotApi('hy1MPmID80D6fM0jPXOKEjKO7MzZFOAiqHgLVlE1yBWeNHwYlPxDPxLqUBd4zm/XyOE/89iMmvZ69fnekdps9Y9hgbOr3Mvmi0nkp/jDlIydLrhC0k1A7RwL7QMQEkp6LzX7WkEEF4BQZV6/OOqypgdB04t89/1O/w1cDnyilFU=')
@@ -95,7 +95,7 @@ def handle_message(event):
         if sub_webcam != None:
             sub_webcam.terminate()
             sub_webcam = None
-            sub = subprocess.Popen("python3 " + os_path + "/Regcon.py")
+            sub = subprocess.Popen("python3 " + os_path)
 
         mtext = event.message.text
         userid = event.source.user_id
@@ -207,7 +207,7 @@ def handle_message(event):
 
             line_bot_api.reply_message(event.reply_token, TextSendMessage(set.delete_person(mtext)))
             status = 0
-            sub = subprocess.Popen("python3 " + os_path + "/Regcon.py")
+            sub = subprocess.Popen("python3 " + os_path)
 
         elif status == 3: # schedule who
 
@@ -230,7 +230,7 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token, TextSendMessage(set.set(setlist[0], setlist[1], setlist[2])))
 
             status = 0
-            sub = subprocess.Popen("python3 " + os_path + "/Regcon.py")
+            sub = subprocess.Popen("python3 " + os_path)
 
         elif status == 2: #recieving setFace's name
             
@@ -252,7 +252,7 @@ def handle_message(event):
             line_bot_api.push_message(userid, TextSendMessage(mtext + setface(mtext)))
 
             status = 0
-            sub = subprocess.Popen("python3 " + os_path + "/Regcon.py")
+            sub = subprocess.Popen("python3 " + os_path)
 
         elif status == 100:
             
@@ -268,7 +268,7 @@ def handle_message(event):
             except:
                 print("PWM Error!")
 
-            sub = subprocess.Popen("python3 " + os_path + "/Regcon.py")
+            sub = subprocess.Popen("python3 " + os_path)
             status = 0
 
         else:
@@ -290,6 +290,6 @@ def open_port():
 
 if __name__ == '__main__':
 
-    sub = subprocess.Popen("python3 " + os_path + "/Regcon.py")
+    sub = subprocess.Popen("python3 " + os_path)
     open_port()
     app.run()
