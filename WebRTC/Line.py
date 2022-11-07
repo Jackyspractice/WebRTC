@@ -95,11 +95,11 @@ def handle_message(event):
     if isinstance(event.message, TextMessage):
 
         if sub_webcam != None:
-            #sub_webcam.kill()
-            os.kill(sub_webcam.pid, signal.SIGTERM)
+            sub_webcam.kill()
+            #os.kill(sub_webcam.pid, signal.SIGTERM)
             print("exit server.py")
             sub_webcam = None
-            sub = subprocess.Popen("python3 " + Reg_path, shell = True)
+            sub = subprocess.Popen("exec python3 " + Reg_path, shell = True)
 
         mtext = event.message.text
         userid = event.source.user_id
@@ -117,14 +117,14 @@ def handle_message(event):
             #webcam_URL = get_ngrok_URL()
 
             try:
-                #sub.kill()
-                os.kill(sub.pid, signal.SIGTERM)
+                sub.kill()
+                #os.kill(sub.pid, signal.SIGTERM)
                 print("exit regcon.py")
                 sub = None
             except:
                 print("no subprocess opened")
 
-            sub_webcam = subprocess.Popen("python3 " + server_path, shell = True)
+            sub_webcam = subprocess.Popen("exec python3 " + server_path, shell = True)
 
             time.sleep(1)
 
@@ -145,8 +145,8 @@ def handle_message(event):
             status = 1
 
             try:
-                #sub.kill()
-                os.kill(sub.pid, signal.SIGTERM)
+                sub.kill()
+                #os.kill(sub.pid, signal.SIGTERM)
                 print("exit regcon.py")
                 sub = None
             except:
@@ -191,8 +191,8 @@ def handle_message(event):
             status = 1
 
             try:
-                #sub.kill()
-                os.kill(sub.pid, signal.SIGTERM)
+                sub.kill()
+                #os.kill(sub.pid, signal.SIGTERM)
                 print("exit regcon.py")
                 sub = None
             except:
@@ -219,7 +219,7 @@ def handle_message(event):
 
             line_bot_api.reply_message(event.reply_token, TextSendMessage(set.delete_person(mtext)))
             status = 0
-            sub = subprocess.Popen("python3 " + Reg_path, shell = True)
+            sub = subprocess.Popen("exec python3 " + Reg_path, shell = True)
 
         elif status == 3: # schedule who
 
@@ -242,23 +242,23 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token, TextSendMessage(set.set(setlist[0], setlist[1], setlist[2])))
 
             status = 0
-            sub = subprocess.Popen("python3 " + Reg_path, shell = True)
+            sub = subprocess.Popen("exec python3 " + Reg_path, shell = True)
 
         elif status == 2: #recieving setFace's name
             
             line_bot_api.reply_message(event.reply_token, TextSendMessage("$Having U'r face in front of Camera for 5 Sec when light is on...", emojis = emoji1))
 
             try:
-                #sub.kill()
-                os.kill(sub.pid, signal.SIGTERM)
+                sub.kill()
+                #os.kill(sub.pid, signal.SIGTERM)
                 print("exit regcon.py")
                 sub = None
             except:
                 print("no regcon subprocess opened")
 
             try:
-                #sub_webcam.kill()
-                os.kill(sub_webcam.pid, signal.SIGTERM)
+                sub_webcam.kill()
+                #os.kill(sub_webcam.pid, signal.SIGTERM)
                 print("exit server.py")
                 sub_webcam = None
             except:
@@ -268,7 +268,7 @@ def handle_message(event):
             line_bot_api.push_message(userid, TextSendMessage(mtext + setface(mtext)))
 
             status = 0
-            sub = subprocess.Popen("python3 " + Reg_path, shell = True)
+            sub = subprocess.Popen("exec python3 " + Reg_path, shell = True)
 
         elif status == 100:
             
@@ -284,7 +284,7 @@ def handle_message(event):
             except:
                 print("PWM Error!")
 
-            sub = subprocess.Popen("python3 " + Reg_path, shell = True)
+            sub = subprocess.Popen("exec python3 " + Reg_path, shell = True)
             status = 0
 
         else:
@@ -306,6 +306,6 @@ def open_port():
 
 if __name__ == '__main__':
 
-    sub = subprocess.Popen("python3 " + Reg_path, shell = True)
+    sub = subprocess.Popen("exec python3 " + Reg_path, shell = True)
     open_port()
     app.run()
