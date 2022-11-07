@@ -6,7 +6,7 @@ from orangepwm import *
 SG90_Degree = []
 PWM = None
 runtime = 5
-Box_GPIO_port = ["PA0", "PA1", "PA2", "PA3", "PA4", "PA5"]
+Box_GPIO_port = ["PA1", "PA0", "PA3", "PA7", "PA19", "PA18"] #11, 13, 15, 12, 16, 18
 
 class SG90:
 
