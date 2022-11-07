@@ -72,10 +72,10 @@ class PWM_Control:
 
         global Box_GPIO_port
         
-        for num in Box_GPIO_port:
+        for i in range (0, len(Box_GPIO_port)):
 
-            gpio.setcfg(port.num, gpio.OUTPUT)
-            gpio.setcfg(port.num, 0)
+            gpio.setcfg(port.Box_GPIO_port[i], gpio.OUTPUT)
+            gpio.setcfg(port.Box_GPIO_port[i], 0)
 
     def initial(self):  #initial SG90 Argument & PWM frequence/Port
 
