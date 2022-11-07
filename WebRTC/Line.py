@@ -30,6 +30,7 @@ ngrok_token = "2EFlxQQDpreqVGMuQVTtTepMzHB_7Px3VmMDjcQxgLoDH7Ync"
 
 webcam_URL = None
 status = 0 #[empty, 0], [occupy, 1], [input facename, 2]...elses check FSM
+enable = 1
 sub = None #for Regcon.py
 sub_webcam = None #for server.py
 set = set_schedule()
@@ -90,7 +91,7 @@ def callback():
 
 def handle_message(event):
 
-    global status, sub, sub_webcam
+    global status, sub, sub_webcam, enable
     
     if isinstance(event.message, TextMessage):
 
@@ -105,7 +106,7 @@ def handle_message(event):
         userid = event.source.user_id
         #groupid = event.source.group_id
 
-        if status == 1:
+        if status == 1 or enable == 0:
 
             line_bot_api.reply_message(event.reply_token, TextSendMessage("$Channel is occupy, please wait...", emojis = emoji1))
 
@@ -217,37 +218,48 @@ def handle_message(event):
 
         elif status == 6: # delete person
 
+            enable = 0
             line_bot_api.reply_message(event.reply_token, TextSendMessage(set.delete_person(mtext)))
             status = 0
+            enable = 1
             sub = subprocess.Popen("exec python3 " + Reg_path, shell = True)
 
         elif status == 3: # schedule who
+
+            enable = 0
 
             setlist.clear()
             setlist.append(mtext)
             line_bot_api.reply_message(event.reply_token, Carousel_Weekday())
 
             status = 4
+            enable = 1
 
         elif status == 4: # schedule weekday
+
+            enable = 0
 
             setlist.append(mtext)
             line_bot_api.reply_message(event.reply_token, Carousel_Box())
 
             status = 5
+            enable = 1
 
         elif status == 5: # schedule whichBox
+
+            enable = 0
 
             setlist.append(mtext)
             line_bot_api.reply_message(event.reply_token, TextSendMessage(set.set(setlist[0], setlist[1], setlist[2])))
 
             status = 0
+            enable = 1
             sub = subprocess.Popen("exec python3 " + Reg_path, shell = True)
 
         elif status == 2: #recieving setFace's name
             
             line_bot_api.reply_message(event.reply_token, TextSendMessage("$Having U'r face in front of Camera for 5 Sec when light is on...", emojis = emoji1))
-
+            enable = 0
             try:
                 sub.kill()
                 #os.kill(sub.pid, signal.SIGTERM)
@@ -268,6 +280,7 @@ def handle_message(event):
             line_bot_api.push_message(userid, TextSendMessage(mtext + setface(mtext)))
 
             status = 0
+            enable = 1
             sub = subprocess.Popen("exec python3 " + Reg_path, shell = True)
 
         elif status == 100:
@@ -275,7 +288,8 @@ def handle_message(event):
             number = mtext
 
             line_bot_api.reply_message(event.reply_token, TextSendMessage("$Opening Box for you...", emojis = emoji1))
-            
+            enable = 0
+
             try:
                 pwm = PWM_Control()
                 
@@ -286,6 +300,7 @@ def handle_message(event):
 
             sub = subprocess.Popen("exec python3 " + Reg_path, shell = True)
             status = 0
+            enable = 1
 
         else:
 
