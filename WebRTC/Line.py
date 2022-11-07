@@ -4,6 +4,7 @@ from linebot import  LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
 import os
+import signal
 
 from pyngrok import ngrok
 from create_data import setface
@@ -94,7 +95,9 @@ def handle_message(event):
     if isinstance(event.message, TextMessage):
 
         if sub_webcam != None:
-            sub_webcam.kill()
+            #sub_webcam.kill()
+            os.kill(sub_webcam.pid, signal.SIGTERM)
+            print("exit server.py")
             sub_webcam = None
             sub = subprocess.Popen("python3 " + Reg_path, shell = True)
 
@@ -114,7 +117,9 @@ def handle_message(event):
             #webcam_URL = get_ngrok_URL()
 
             try:
-                sub.kill()
+                #sub.kill()
+                os.kill(sub.pid, signal.SIGTERM)
+                print("exit regcon.py")
                 sub = None
             except:
                 print("no subprocess opened")
@@ -140,7 +145,9 @@ def handle_message(event):
             status = 1
 
             try:
-                sub.kill()
+                #sub.kill()
+                os.kill(sub.pid, signal.SIGTERM)
+                print("exit regcon.py")
                 sub = None
             except:
                 print("no regcon subprocess opened")
@@ -162,7 +169,9 @@ def handle_message(event):
             status = 1
 
             try:
-                sub.kill()
+                #sub.kill()
+                os.kill(sub.pid, signal.SIGTERM)
+                print("exit regcon.py")
                 sub = None
             except:
                 print("no regcon subprocess opened")
@@ -182,7 +191,9 @@ def handle_message(event):
             status = 1
 
             try:
-                sub.kill()
+                #sub.kill()
+                os.kill(sub.pid, signal.SIGTERM)
+                print("exit regcon.py")
                 sub = None
             except:
                 print("no regcon subprocess opened")
@@ -238,13 +249,17 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token, TextSendMessage("$Having U'r face in front of Camera for 5 Sec when light is on...", emojis = emoji1))
 
             try:
-                sub.kill()
+                #sub.kill()
+                os.kill(sub.pid, signal.SIGTERM)
+                print("exit regcon.py")
                 sub = None
             except:
                 print("no regcon subprocess opened")
 
             try:
-                sub_webcam.kill()
+                #sub_webcam.kill()
+                os.kill(sub_webcam.pid, signal.SIGTERM)
+                print("exit server.py")
                 sub_webcam = None
             except:
                 print("no webcam subprocess opened")
