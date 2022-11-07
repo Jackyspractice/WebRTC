@@ -93,7 +93,7 @@ def handle_message(event):
     if isinstance(event.message, TextMessage):
 
         if sub_webcam != None:
-            sub_webcam.terminate()
+            sub_webcam.kill()
             sub_webcam = None
             sub = subprocess.Popen("python3 " + os_path, shell = True)
 
@@ -113,7 +113,7 @@ def handle_message(event):
             #webcam_URL = get_ngrok_URL()
 
             try:
-                sub.terminate()
+                sub.kill()
                 sub = None
             except:
                 print("no subprocess opened")
@@ -139,7 +139,7 @@ def handle_message(event):
             status = 1
 
             try:
-                sub.terminate()
+                sub.kill()
                 sub = None
             except:
                 print("no regcon subprocess opened")
@@ -161,7 +161,7 @@ def handle_message(event):
             status = 1
 
             try:
-                sub.terminate()
+                sub.kill()
                 sub = None
             except:
                 print("no regcon subprocess opened")
@@ -181,7 +181,7 @@ def handle_message(event):
             status = 1
 
             try:
-                sub.terminate()
+                sub.kill()
                 sub = None
             except:
                 print("no regcon subprocess opened")
@@ -237,13 +237,13 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token, TextSendMessage("$Having U'r face in front of Camera for 5 Sec when light is on...", emojis = emoji1))
 
             try:
-                sub.terminate()
+                sub.kill()
                 sub = None
             except:
                 print("no regcon subprocess opened")
 
             try:
-                sub_webcam.terminate()
+                sub_webcam.kill()
                 sub_webcam = None
             except:
                 print("no webcam subprocess opened")

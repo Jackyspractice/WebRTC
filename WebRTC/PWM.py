@@ -37,7 +37,6 @@ class SG90:
 
 class PWM_Control:
 
-
     def GPIO_set_HIGH(self, which_box):
 
         global Box_GPIO_port
