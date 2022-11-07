@@ -53,7 +53,7 @@ class parser:
         )
 
         parser.add_argument(
-            "--port", type = int, default = 8080, help = "post number for server"
+            "--port", type = int, default = 12501, help = "post number for server"
         )
 
         parser.add_argument("--verbose", "-v", action = "count")
@@ -141,7 +141,7 @@ def set_page(app0):
 def get_ngrok_URL():
 
     ngrok.set_auth_token(token)
-    http_tunnel = ngrok.connect(8080)
+    http_tunnel = ngrok.connect(12501)
     print("-------------------->" + http_tunnel.public_url)
 
     return http_tunnel.public_url
