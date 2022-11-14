@@ -82,7 +82,6 @@ class set_schedule:
 
         return person_data
         
-
     def delete_person(self, name):
         write_data = []
         write_data.clear()

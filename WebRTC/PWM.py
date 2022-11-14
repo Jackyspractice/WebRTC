@@ -100,10 +100,11 @@ class PWM_Control:
 
         print("Closing...")
 
-        self.GPIO_set_LOW(which_box)
 
         PWM.changeDutyCycle(SG90_Degree[2].duty)
         sleep(runtime)
+        
+        self.GPIO_set_LOW(which_box)
 
         PWM.stop()
 
