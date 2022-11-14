@@ -23,6 +23,8 @@ def initial():
 def high(which_box):
     global Box_GPIO_port
 
+    which_box = int(which_box)
+
     if Box_GPIO_port[which_box - 1] == "PA1":
         gpio.setcfg(port.PA1, 1)
 
@@ -43,6 +45,8 @@ def high(which_box):
 
 def low(which_box):
     global Box_GPIO_port
+
+    which_box = int(which_box)
 
     if Box_GPIO_port[which_box - 1] == "PA1":
         gpio.setcfg(port.PA1, 0)
