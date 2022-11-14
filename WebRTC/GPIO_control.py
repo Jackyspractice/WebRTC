@@ -76,5 +76,5 @@ if __name__ == "__main__":
     high("4")
     high("5")
     high("6")
-    print("sleep 5s")
-    sleep(5)
+    print("sleep 60s")
+    sleep(60)
