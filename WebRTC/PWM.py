@@ -156,7 +156,6 @@ if __name__ == "__main__":
     pwm.initial()
     
     while 1:
-        gpio.init()
-        pwm.GPIO_initial()
+
         num = input("input num: ")
         pwm.active(num)
