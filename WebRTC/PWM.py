@@ -154,8 +154,4 @@ if __name__ == "__main__":
 
     pwm = PWM_Control()
     pwm.initial()
-    
-    while 1:
-
-        num = input("input num: ")
-        pwm.active(num)
+    pwm.active("2")
