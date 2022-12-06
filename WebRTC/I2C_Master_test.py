@@ -1,6 +1,6 @@
 import smbus
 import time
-DEVICE_ADDR = 0x08
+DEVICE_ADDR = 0x09
 bus = smbus.SMBus(1)
 
 
