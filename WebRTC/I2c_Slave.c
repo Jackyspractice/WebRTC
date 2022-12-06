@@ -1,7 +1,7 @@
 #include <Wire.h>
 #include <Servo.h>
 
-const int address = 1;
+#define address 0x04
 char c = '\0';
 Servo servos[6];
 

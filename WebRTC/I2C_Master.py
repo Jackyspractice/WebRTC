@@ -1,7 +1,7 @@
-from pyA20.i2c import i2c
+from pyA20 import i2c
 import time
 
-class PMW:
+class PWM:
 
     def __init__(self) -> None:
         pass
@@ -17,7 +17,7 @@ class PMW:
         print("Start sending ", num_char)
 
         #If we want to write to some register
-        i2c.write([0xAA, num_char]) #Write 0x20 to register 0xAA
+        i2c.write([0xAA, 0xFF]) #Write 0x20 to register 0xAA
 
         #i2c.write([0xAA, 0x10, 0x11, 0x12]) #Do continuous write with start address 0xAA
 
