@@ -1,47 +1,31 @@
-from pyA20 import i2c
+import smbus
 import time
+DEVICE_ADDR = 0x09
+bus = smbus.SMBus(1)
 
-class PWM:
 
-    def __init__(self) -> None:
-        pass
+def Send_Data(income_char):
 
-    def initial(self):
-        i2c.init("/dev/i2c-2")  #Initialize module to use /dev/i2c-2
-        i2c.open(0x55)  #The slave device address is 0x55
-
-    def send_Meg(self, num_char):
-
-        self.initial()
-
-        print("Start sending ", num_char)
-
-        #If we want to write to some register
-        i2c.write([0xAA, 0xFF]) #Write 0x20 to register 0xAA
-
-        #i2c.write([0xAA, 0x10, 0x11, 0x12]) #Do continuous write with start address 0xAA
-
-        i2c.close() #End communication with slave device
-
-    def wait_for_success(self):
-
-        self.initial()
-
-        #If we want to do write and read
-        i2c.write([0xAA])   #Set address at 0xAA register
-        value = None
-
-        while(value == None):
-            value = i2c.read(1) #Read 1 byte with start address 0xAA
-
-        print("Revieve:", value)
-
+    if income_char == '1':
+        bus.write_byte_data(DEVICE_ADDR, 0x00, 0x01)
+    elif income_char == '2':
+        bus.write_byte_data(DEVICE_ADDR, 0x00, 0x02)
+    elif income_char == '3':
+        bus.write_byte_data(DEVICE_ADDR, 0x00, 0x03)
+    elif income_char == '4':
+        bus.write_byte_data(DEVICE_ADDR, 0x00, 0x04)
+    elif income_char == '5':
+        bus.write_byte_data(DEVICE_ADDR, 0x00, 0x05)
+    elif income_char == '6':
+        bus.write_byte_data(DEVICE_ADDR, 0x00, 0x06)
+    else:
+        return "input error!"
+    
+    return "Sent!"
+    
 if __name__ == "__main__":
 
-    pwm = PWM()
-
-    pwm.send_Meg('1')
-
-    pwm.wait_for_success()
-
-    print("End")
+    for i in range(1, 7):
+        
+        print(Send_Data(str(i)))
+        time.sleep(0.5)

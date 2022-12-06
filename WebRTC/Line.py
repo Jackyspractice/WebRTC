@@ -8,7 +8,8 @@ import signal
 
 from pyngrok import ngrok
 from create_data import setface
-from PWM import *
+#from PWM import *
+from I2C_Master import Send_Data
 from schedule import *
 from build_template import *
 
@@ -290,10 +291,7 @@ def handle_message(event):
             enable = 0
 
             try:
-                pwm = PWM_Control()
-                
-                pwm.initial()
-                pwm.active(number)
+                Send_Data(number)
             except:
                 print("PWM Error!")
 
