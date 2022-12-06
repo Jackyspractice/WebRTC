@@ -329,6 +329,9 @@ def open_port():
 
 if __name__ == '__main__':
 
-    sub = subprocess.Popen("exec python3 " + Reg_path, shell = True)
+    try:
+        sub = subprocess.Popen("exec python3 " + Reg_path, shell = True)
+    except:
+        print("Can't open Camera!")
     open_port()
     app.run()
