@@ -134,6 +134,7 @@ void Event(int incomebyte) {
         if (c <= '6' or c >= '0'){
           
           Open_PWM(c);
+          delay(3000); //3s
           Close_PWM(c);
         
         }
