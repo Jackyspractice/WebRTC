@@ -95,16 +95,19 @@ def handle_message(event):
     
     if isinstance(event.message, TextMessage):
 
+        mtext = event.message.text
+        userid = event.source.user_id
+        #groupid = event.source.group_id
+
         if sub_webcam != None:
             sub_webcam.kill()
             #os.kill(sub_webcam.pid, signal.SIGTERM)
             print("exit server.py")
             sub_webcam = None
-            sub = subprocess.Popen("exec python3 " + Reg_path, shell = True)
-
-        mtext = event.message.text
-        userid = event.source.user_id
-        #groupid = event.source.group_id
+            try:
+                sub = subprocess.Popen("exec python3 " + Reg_path, shell = True)
+            except:
+                line_bot_api.push_message(userid, TextSendMessage("Can't open camera!"))
 
         if status == 1 or enable == 0:
 
@@ -254,7 +257,10 @@ def handle_message(event):
 
             status = 0
             enable = 1
-            sub = subprocess.Popen("exec python3 " + Reg_path, shell = True)
+            try:
+                sub = subprocess.Popen("exec python3 " + Reg_path, shell = True)
+            except:
+                line_bot_api.push_message(userid, TextSendMessage("Can't open camera!"))
 
         elif status == 2: #recieving setFace's name
             
@@ -281,7 +287,10 @@ def handle_message(event):
 
             status = 0
             enable = 1
-            sub = subprocess.Popen("exec python3 " + Reg_path, shell = True)
+            try:
+                sub = subprocess.Popen("exec python3 " + Reg_path, shell = True)
+            except:
+                line_bot_api.push_message(userid, TextSendMessage("Can't open camera!"))
 
         elif status == 100:
             
@@ -295,12 +304,14 @@ def handle_message(event):
             except:
                 print("PWM Error!")
 
-            sub = subprocess.Popen("exec python3 " + Reg_path, shell = True)
             status = 0
             enable = 1
-
+            try:
+                sub = subprocess.Popen("exec python3 " + Reg_path, shell = True)
+            except:
+                line_bot_api.push_message(userid, TextSendMessage("Can't open camera!"))
+        
         else:
-
             line_bot_api.reply_message(event.reply_token, TextSendMessage("$Shut Up!", emojis = emoji1))
 
 def open_port():
