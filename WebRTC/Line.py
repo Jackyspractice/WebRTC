@@ -291,7 +291,7 @@ def handle_message(event):
             enable = 0
 
             try:
-                Send_Data(number)
+                print(Send_Data(number))
             except:
                 print("PWM Error!")
 
