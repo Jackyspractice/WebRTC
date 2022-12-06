@@ -281,9 +281,12 @@ def handle_message(event):
                 sub_webcam = None
             except:
                 print("no webcam subprocess opened")
-
-
-            line_bot_api.push_message(userid, TextSendMessage(mtext + setface(mtext)))
+            try:
+                msg = setface(mtext)
+            except:
+                msg = " Can't open camera!"
+                
+            line_bot_api.push_message(userid, TextSendMessage(mtext + msg))
 
             status = 0
             enable = 1
