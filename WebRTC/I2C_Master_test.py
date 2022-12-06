@@ -25,9 +25,7 @@ def Send_Data(income_char):
     
 if __name__ == "__main__":
 
-    x = '1'
     for i in range(1, 7):
         
-        print(Send_Data(x))
+        print(Send_Data(str(i)))
         time.sleep(0.5)
-        x += 1
