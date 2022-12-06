@@ -1,12 +1,14 @@
 #include <Wire.h>
 #include <Servo.h>
 
-#define address 0x04
+#define address 0x09
 char c = '\0';
 Servo servos[6];
+byte data_to_echo = 0x07;
 
 void Open_PWM(char c);
 void Close_PWM(char c);
+void sendData(void);
 
 void setting_PWM_PIN() {
 
@@ -35,11 +37,12 @@ void setup() {
 
     Wire.begin(address);
     Wire.onReceive(Event);
+    Wire.onRequest(sendData);
 
     Serial.begin(9600);
     Serial.print("Data Recieved:");
-    Serial.print("\nStart test PWM\n");
-    test_PWM();
+    //Serial.print("\nStart test PWM\n");
+    //test_PWM();
 }
 
 void loop() {
@@ -129,11 +132,17 @@ void Event(int incomebyte) {
         Serial.print(c);
 
         if (c <= '6' or c >= '0'){
-
+          
           Open_PWM(c);
           Close_PWM(c);
         
         }
         
     }
+}
+
+
+void sendData()
+{
+  Wire.write(data_to_echo);
 }
