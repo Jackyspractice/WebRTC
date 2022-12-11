@@ -1,2 +1,0 @@
-nohup python3 Line.py&
-#CMD終止時不會KILL這個process
