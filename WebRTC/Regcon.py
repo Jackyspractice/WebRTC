@@ -1,12 +1,12 @@
 import cv2
 import time
 from datetime import datetime
-from PWM import *
+#from PWM import *
+from I2C_Master import Send_Data
 
 from schedule import *
 
 cap = cv2.VideoCapture(1)
-
 class Recognize:
 
     def whoareu(self):
@@ -26,22 +26,6 @@ class Recognize:
         
         if (cap.isOpened() == False):
             return False
-        
-        '''
-        while(cap.isOpened()):  #cam開啟成功
-            print("Starting Regconface, put U'r face on screen", end = '\r')
-            count = 4 - int(time.time() - timenow)  #倒數計時5秒
-            ret, img = cap.read()
-            if ret == True:
-                #imgcopy = img.copy()  #複製影像
-                #cv2.putText(imgcopy, str(count), (200,400), cv2.FONT_HERSHEY_SIMPLEX, 15, (0,0,255), 35)  #在複製影像上畫倒數秒數
-                #cv2.imshow("frame", imgcopy)  #顯示複製影像
-                if count == 0:  #倒數計時結束
-                    cv2.imwrite("media/tem.jpg", img)  #將影像存檔
-                    break
-        #cap.release()  #關閉cam
-        #cv2.destroyAllWindows()
-        '''
 
         sum = 0
         times = 0
@@ -121,24 +105,15 @@ class Recognize:
             
             else:
                 time.sleep(0.2)
-            
-        #cap.release()  #關閉cam
-        #cv2.destroyAllWindows()
 
 def Open_Box(boxnum):
 
     print("opening box" + boxnum, end = "")
 
     try:
-        pwm = PWM_Control()
-                
-        pwm.initial()
-        pwm.active(boxnum)
-
+        print(Send_Data(boxnum))
     except:
-
         print("PWM Error!")
-
 
 def find_which_box(person):
 
