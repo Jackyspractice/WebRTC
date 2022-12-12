@@ -27,13 +27,13 @@ void setting_PWM_PIN() {
 void All_PWM(char i) {
     
     Open_PWM(i);
-    delay(3000); //3s
+    delay(1000); //1s
 
     Stop_PWM(i);
     delay(3000);
 
     Close_PWM(i);
-    delay(3000);
+    delay(1000);
 
     Stop_PWM(i);
 
@@ -75,7 +75,7 @@ void setup() {
 
     Serial.begin(9600);
     //Serial.print("\nStart test PWM\n");
-    //All_PWM('1');
+    All_PWM('1');
 }
 
 void loop() {
