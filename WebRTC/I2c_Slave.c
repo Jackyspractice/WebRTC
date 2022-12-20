@@ -103,19 +103,19 @@ void Open_PWM(char c){
         servos[0].write(0);
         break;
       case 50:
-        servos[1].write(0);
+        servos[1].write(180);
         break;
       case 51:
-        servos[2].write(0);
+        servos[2].write(180);
         break;
       case 52:
-        servos[3].write(0);
+        servos[3].write(180);
         break;
       case 53:
-        servos[4].write(0);
+        servos[4].write(180);
         break;
       case 54:
-        servos[5].write(0);
+        servos[5].write(180);
         break;
       
       default:
@@ -176,19 +176,19 @@ void Close_PWM(char c){
         servos[0].write(180);
         break;
       case 50:
-        servos[1].write(180);
+        servos[1].write(0);
         break;
       case 51:
-        servos[2].write(180);
+        servos[2].write(0);
         break;
       case 52:
-        servos[3].write(180);
+        servos[3].write(0);
         break;
       case 53:
-        servos[4].write(180);
+        servos[4].write(0);
         break;
       case 54:
-        servos[5].write(180);
+        servos[5].write(0);
         break;
       
       default:
