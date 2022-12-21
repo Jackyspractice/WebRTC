@@ -21,7 +21,7 @@ def setface(name):
         #face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_alt2.xml")
         cap = cv2.VideoCapture(1)
         print("Opening Camera")
-        cv2.namedWindow('video', cv2.WINDOW_NORMAL)
+        #cv2.namedWindow('video', cv2.WINDOW_NORMAL)
         while index > 0:
             ret, frame = cap.read()
             frame = cv2.flip(frame, 1)
