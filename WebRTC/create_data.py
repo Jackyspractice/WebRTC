@@ -37,10 +37,10 @@ def setface(name):
                     print('Sampling Complete!')
                     index = -1
                     break
-            cv2.imshow('video', frame)
+            #cv2.imshow('video', frame)
             cv2.waitKey(1)
         cap.release()
-        cv2.destroyAllWindows()
+        #cv2.destroyAllWindows()
             
     images = []
     labels = []
