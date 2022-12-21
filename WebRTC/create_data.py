@@ -10,7 +10,7 @@ def saveImg(name, image, index):
 def setface(name):
     
     index = 1
-    total = 100
+    total = 50
     
     if os.path.isdir('images/' + name):
         print('Name Already exist!')
