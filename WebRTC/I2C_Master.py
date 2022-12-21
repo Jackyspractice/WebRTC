@@ -19,7 +19,7 @@ def Send_Data(income_char):
     elif income_char == '6':
         bus.write_byte_data(DEVICE_ADDR, 0x00, 0x36)
     else:
-        return "input error!"
+        bus.write_byte_data(DEVICE_ADDR, 0x00, 0x31)
     
     return "Sent!"
     
