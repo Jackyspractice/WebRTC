@@ -109,6 +109,11 @@ def handle_message(event):
             except:
                 line_bot_api.push_message(userid, TextSendMessage("Can't open camera!"))
 
+        if mtext == "reset":
+
+            status = 0
+            enable = 1
+
         if status == 1 or enable == 0:
 
             line_bot_api.reply_message(event.reply_token, TextSendMessage("$Channel is occupy, please wait...", emojis = emoji1))
@@ -314,6 +319,7 @@ def handle_message(event):
             except:
                 line_bot_api.push_message(userid, TextSendMessage("Can't open camera!"))
         
+                
         else:
             line_bot_api.reply_message(event.reply_token, TextSendMessage("$Shut Up!", emojis = emoji1))
 
